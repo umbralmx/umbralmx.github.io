@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>umbral_ — laboratorio de datos de interés público</title>
+  <meta name="description" content="Umbral es un laboratorio de datos independiente y de código abierto. Productos de datos, análisis causal y herramientas de monitoreo para el interés público.">
+  <link rel="icon" type="image/svg+xml" href="/assets/umbral-favicon.svg">
+  <link rel="stylesheet" href="/assets/tokens.css">
+  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="umbral — inicio">
+      <img src="/assets/umbral-isotype-light.svg" alt="" width="28" height="28">
+      <span class="wordmark">umbral<span class="u">_</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Navegación principal">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#datos">Datos</a>
+      <a href="#metodologia">Metodología</a>
+      <a class="lang" href="/en/" lang="en" hreflang="en"><span class="active">ES</span><span class="inactive"> / EN</span></a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <h1>Cruzar el <span class="accent">umbral</span> con datos.</h1>
+      <p>Umbral es un laboratorio de datos independiente y de código abierto. Construimos productos de datos, análisis causal y herramientas de monitoreo para el interés público — todo reproducible, todo documentado.</p>
+      <p class="tagline">umbral = el punto donde la evidencia se vuelve significativa</p>
+    </div>
+  </section>
+
+  <section class="section" id="proyectos">
+    <div class="wrap">
+      <p class="section-label">Proyectos</p>
+      <h2>Lo que estamos construyendo</h2>
+      <p>Cada proyecto publica su código bajo licencia MIT y sus datos limpios bajo CC BY 4.0. Los datos públicos regresan al público, mejorados.</p>
+      <div class="projects">
+        <article class="project">
+          <p class="status">En desarrollo</p>
+          <h3>desaparecidosmx</h3>
+          <p>Monitoreo reproducible de los registros de personas desaparecidas en México. Series de tiempo, cobertura por entidad y disclosure explícito de los vacíos en los datos.</p>
+          <p class="meta">Fuente: RNPDNO · código MIT · datos CC BY 4.0</p>
+        </article>
+        <article class="project">
+          <p class="status">En desarrollo</p>
+          <h3>observatorio-delictivo-mx</h3>
+          <p>Tasas de incidencia delictiva por cada 100 mil habitantes, normalizadas y comparables entre entidades. Nunca conteos crudos entre poblaciones de distinto tamaño.</p>
+          <p class="meta">Fuente: SESNSP · código MIT · datos CC BY 4.0</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="datos">
+    <div class="wrap">
+      <p class="section-label">Datos</p>
+      <h2>Cada cifra publicada se puede reconstruir desde la fuente</h2>
+      <p>Todo conjunto de datos que publicamos incluye su procedencia completa: URL de origen, fecha de descarga, licencia y limitaciones conocidas. Cada número trazable a una transformación programada — nunca a una edición manual. Si una cifra no se puede reproducir, no se publica.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/umbralmx">Ver repositorios en GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="metodologia">
+    <div class="wrap">
+      <p class="section-label">Metodología</p>
+      <h2>Estándares de honestidad e interpretabilidad</h2>
+      <ol class="principles">
+        <li>
+          <span class="n">01</span>
+          <div>
+            <strong>El título es la afirmación</strong>
+            <p>Cada gráfica se titula con el hallazgo, y el hallazgo debe sostenerse con los datos mostrados. Ningún titular que la evidencia no respalde.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <div>
+            <strong>Lenguaje causal deliberado</strong>
+            <p>«Asociado con» y «correlaciona» para trabajo descriptivo. «Efecto» y «reduce» solo con una estrategia de identificación explícita, con su supuesto clave declarado junto al estimado.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <div>
+            <strong>La incertidumbre siempre es visible</strong>
+            <p>Intervalos en las proyecciones, intervalos de confianza en los estimados, n y denominador en las tasas. Un estimado puntual sin intervalo está incompleto.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <div>
+            <strong>Ejes honestos, vacíos visibles</strong>
+            <p>El eje y inicia en cero para barras; cualquier truncamiento se anota. Los datos faltantes o subreportados se declaran — nunca se omiten ni se imputan en silencio.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">05</span>
+          <div>
+            <strong>Dignidad humana</strong>
+            <p>Los temas sensibles se tratan con dignidad: las personas se cuentan, nunca se convierten en espectáculo.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="nosotros">
+    <div class="wrap">
+      <p class="section-label">Nosotros</p>
+      <h2>Quiénes construyen Umbral</h2>
+      <div class="people">
+        <article class="person">
+          <!-- Reemplazar el placeholder con: <img src="/assets/jay-ballesteros.jpg" alt="Jay Ballesteros"> -->
+          <div class="photo" role="img" aria-label="Fotografía pendiente de Jay Ballesteros">foto</div>
+          <h3>Jay Ballesteros</h3>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
+            <a class="btn btn-secondary" href="#">Sitio personal</a>
+          </div>
+        </article>
+        <article class="person">
+          <!-- Reemplazar el placeholder con: <img src="/assets/erick-ballesteros.jpg" alt="Erick Ballesteros"> -->
+          <div class="photo" role="img" aria-label="Fotografía pendiente de Erick Ballesteros">foto</div>
+          <h3>Erick Ballesteros</h3>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
+            <a class="btn btn-secondary" href="#">Sitio personal</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>umbral_ · laboratorio de datos independiente</p>
+    <p>código <a href="https://opensource.org/license/mit">MIT</a> · datos <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a> · <a href="https://github.com/umbralmx">github.com/umbralmx</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
