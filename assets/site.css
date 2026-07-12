@@ -136,6 +136,8 @@ a:focus-visible {
 /* ── Sections ───────────────────────────────────────── */
 
 .section {
+  background: var(--u-base);
+  color: var(--u-ink);
   border-top: var(--u-rule) solid var(--u-border);
   padding: 88px 0;
 }
@@ -196,6 +198,18 @@ a:focus-visible {
   color: var(--u-caption);
   border-top: var(--u-rule) solid var(--u-border);
   padding-top: 16px;
+}
+
+/* ── Link-button rows (project + person cards) ──────── */
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.links .btn {
+  font-size: 13px;
+  padding: 9px 18px;
 }
 
 /* ── Principles list (metodología) ──────────────────── */
@@ -273,14 +287,7 @@ a:focus-visible {
   margin-top: 24px;
 }
 .person .links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   margin-top: 20px;
-}
-.person .links .btn {
-  font-size: 13px;
-  padding: 9px 18px;
 }
 
 /* ── Buttons ────────────────────────────────────────── */

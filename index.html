@@ -20,10 +20,10 @@
       <span class="wordmark">umbral<span class="u">_</span></span>
     </a>
     <nav class="site-nav" aria-label="Navegación principal">
-      <a href="#nosotros">Nosotros</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#datos">Datos</a>
       <a href="#metodologia">Metodología</a>
+      <a href="#nosotros">Nosotros</a>
       <a class="lang" href="/en/" lang="en" hreflang="en"><span class="active">ES</span><span class="inactive"> / EN</span></a>
     </nav>
   </div>
@@ -39,35 +39,7 @@
     </div>
   </section>
 
-  <section class="section" id="nosotros">
-    <div class="wrap">
-      <p class="section-label">Sobre nosotros</p>
-      <h2>Quiénes somos</h2>
-      <p>Umbral lo construyen dos personas. Todo lo que publicamos lleva nuestro nombre y se puede auditar en el código.</p>
-      <div class="people">
-        <article class="person">
-          <!-- Reemplazar el placeholder con: <img src="/assets/jay-ballesteros.jpg" alt="Jay Ballesteros"> -->
-          <div class="photo" role="img" aria-label="Fotografía pendiente de Jay Ballesteros">foto</div>
-          <h3>Jay Ballesteros</h3>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
-            <a class="btn btn-secondary" href="#">Sitio personal</a>
-          </div>
-        </article>
-        <article class="person">
-          <!-- Reemplazar el placeholder con: <img src="/assets/erick-ballesteros.jpg" alt="Erick Ballesteros"> -->
-          <div class="photo" role="img" aria-label="Fotografía pendiente de Erick Ballesteros">foto</div>
-          <h3>Erick Ballesteros</h3>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
-            <a class="btn btn-secondary" href="#">Sitio personal</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="proyectos">
+  <section class="section" id="proyectos" data-mode="instrumento">
     <div class="wrap">
       <p class="section-label">Proyectos</p>
       <h2>Lo que estamos construyendo</h2>
@@ -76,14 +48,21 @@
         <article class="project">
           <p class="status">En desarrollo</p>
           <h3>desaparecidosmx</h3>
-          <p>Monitoreo reproducible de los registros de personas desaparecidas en México. Series de tiempo, cobertura por entidad y disclosure explícito de los vacíos en los datos.</p>
+          <p>Pipeline que convierte el RNPDNO en CSVs limpios, mensuales y por entidad, desagregados por categoría, sexo y municipio — con cada respuesta cruda cacheada y conciliada contra los totales del tablero oficial. Un dashboard en Streamlit corre sobre los datos procesados.</p>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://desaparecidosmx.streamlit.app/">Dashboard</a>
+            <a class="btn btn-secondary" href="https://github.com/jballesterosc/desaparecidosmx">Código</a>
+          </div>
           <p class="meta">Fuente: RNPDNO · código MIT · datos CC BY 4.0</p>
         </article>
         <article class="project">
           <p class="status">En desarrollo</p>
           <h3>observatorio-delictivo-mx</h3>
-          <p>Tasas de incidencia delictiva por cada 100 mil habitantes, normalizadas y comparables entre entidades. Nunca conteos crudos entre poblaciones de distinto tamaño.</p>
-          <p class="meta">Fuente: SESNSP · código MIT · datos CC BY 4.0</p>
+          <p>Pipeline abierto y reproducible de incidencia delictiva, victimización y percepción de seguridad en México. Snapshots inmutables por vintage, tasas por 100 mil habitantes con denominadores de CONAPO, y conciliación de homicidios SESNSP–INEGI.</p>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://github.com/jballesterosc/observatorio-delictivo-mx">Código</a>
+          </div>
+          <p class="meta">Fuentes: SESNSP · INEGI · CONAPO · código MIT · datos CC BY 4.0</p>
         </article>
       </div>
     </div>
@@ -100,7 +79,7 @@
     </div>
   </section>
 
-  <section class="section" id="metodologia">
+  <section class="section" id="metodologia" data-mode="instrumento">
     <div class="wrap">
       <p class="section-label">Metodología</p>
       <h2>Estándares de honestidad e interpretabilidad</h2>
@@ -141,6 +120,33 @@
           </div>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <section class="section" id="nosotros">
+    <div class="wrap">
+      <p class="section-label">Sobre nosotros</p>
+      <h2>Quiénes somos</h2>
+      <p>Umbral lo construyen dos personas. Todo lo que publicamos lleva nuestro nombre y se puede auditar en el código.</p>
+      <div class="people">
+        <article class="person">
+          <div class="photo"><img src="/assets/jay-ballesteros.jpg" alt="Jay Ballesteros"></div>
+          <h3>Jay Ballesteros</h3>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/jay-ballesteros/">LinkedIn</a>
+            <a class="btn btn-secondary" href="https://jballesterosc.github.io/">Sitio personal</a>
+          </div>
+        </article>
+        <article class="person">
+          <!-- Reemplazar el placeholder con: <img src="/assets/erick-ballesteros.jpg" alt="Erick Ballesteros"> -->
+          <div class="photo" role="img" aria-label="Fotografía pendiente de Erick Ballesteros">foto</div>
+          <h3>Erick Ballesteros</h3>
+          <div class="links">
+            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
+            <a class="btn btn-secondary" href="#">Sitio personal</a>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
