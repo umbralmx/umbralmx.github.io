@@ -162,9 +162,11 @@ a:focus-visible {
 
 /* ── Project cards ──────────────────────────────────── */
 
+/* 360px min caps the grid at 2 tracks (3×360 + 2×24 = 1128 > 1016), so the
+   four cards land as a 2×2 instead of an orphaned 3 + 1. */
 .projects {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 24px;
   margin-top: 48px;
 }
@@ -252,12 +254,13 @@ a:focus-visible {
 
 /* ── Team (nosotros) ────────────────────────────────── */
 
+/* No max-width: the 1016px inner measure of .wrap fits exactly 3 tracks
+   (3×280 + 2×24 = 888) and never a 4th (4×280 + 3×24 = 1192). 3 is the cap. */
 .people {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-top: 48px;
-  max-width: 720px;
 }
 .person {
   background: var(--u-panel);
