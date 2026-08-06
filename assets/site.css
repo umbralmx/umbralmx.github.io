@@ -2,6 +2,19 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Site-chrome radii. Deliberate departure from CLAUDE.md §7/§9 (radius 0–2px):
+   the header is a floating module, so every surface takes a matching curve.
+   Kept out of tokens.css, which is generated and still governs charts/exports. */
+:root {
+  --u-radius-ui: 12px;
+  --u-radius-btn: 8px;
+  --u-header-h: 64px;
+  --u-header-top: 16px;
+  /* space the fixed header occupies: its own height + the gap above and below */
+  --u-header-space: calc(var(--u-header-h) + var(--u-header-top) * 2);
+}
+
+/* Fallback for no-JS; site.js drives anchor scrolling with behavior:'instant'. */
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -9,6 +22,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  padding-top: var(--u-header-space);
   background: var(--u-base);
   color: var(--u-ink);
   font-family: var(--u-font-body);
@@ -45,16 +59,32 @@ a:focus-visible {
 
 /* ── Header ─────────────────────────────────────────── */
 
+/* Floating pill, fixed for the whole document so it survives every section. */
 .site-header {
-  background: var(--u-base);
-  border-bottom: var(--u-rule) solid var(--u-border);
+  position: fixed;
+  top: var(--u-header-top);
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
-.site-header .wrap {
+.header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  min-height: 72px;
+  min-height: var(--u-header-h);
+  padding: 0 12px 0 20px;
+  border: var(--u-rule) solid var(--u-border);
+  border-radius: var(--u-radius-ui);
+  /* Opaque, not glassy: a translucent bar picks up whatever section scrolls
+     under it and reads blotchy over the dark ones. Flat panel + 1px rule
+     stays legible everywhere and holds the brand's flatness. No shadow. */
+  background: var(--u-panel);
+}
+/* Anchor targets clear the fixed header on deep links, keyboard nav and
+   reduced-motion jumps (site.js applies the same offset for click scrolls). */
+section[id] {
+  scroll-margin-top: calc(var(--u-header-space) + 8px);
 }
 .brand {
   display: flex;
@@ -93,6 +123,7 @@ a:focus-visible {
   font-family: var(--u-font-mono);
   font-size: 13px;
   border: var(--u-rule) solid var(--u-baseline);
+  border-radius: var(--u-radius-btn);
   padding: 6px 12px;
   color: var(--u-ink);
 }
@@ -110,7 +141,7 @@ a:focus-visible {
 /* ── Hero ───────────────────────────────────────────── */
 
 .hero {
-  padding: 128px 0 112px;
+  padding: 56px 0 112px;
 }
 .hero h1 {
   font-size: clamp(40px, 6vw, 64px);
@@ -119,6 +150,19 @@ a:focus-visible {
 }
 .hero h1 .accent {
   color: var(--u-signal);
+}
+
+/* Terminal caret on the wordmark. steps(1) gives the hard on/off of a real
+   cursor rather than a fade. */
+.caret {
+  animation: u-caret 1.1s steps(1, end) infinite;
+}
+@keyframes u-caret {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; opacity: 1; }
 }
 .hero p {
   margin: 32px 0 0;
@@ -173,6 +217,7 @@ a:focus-visible {
 .project {
   background: var(--u-panel);
   border: var(--u-rule) solid var(--u-border);
+  border-radius: var(--u-radius-ui);
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -265,6 +310,7 @@ a:focus-visible {
 .person {
   background: var(--u-panel);
   border: var(--u-rule) solid var(--u-border);
+  border-radius: var(--u-radius-ui);
   padding: 32px;
 }
 .person .photo {
@@ -272,6 +318,8 @@ a:focus-visible {
   aspect-ratio: 1 / 1;
   background: var(--u-gridline);
   border: var(--u-rule) solid var(--u-border);
+  border-radius: var(--u-radius-btn);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -316,7 +364,7 @@ a:focus-visible {
   font-weight: var(--u-weight-display);
   font-size: 15px;
   padding: 13px 26px;
-  border-radius: var(--u-radius);
+  border-radius: var(--u-radius-btn);
 }
 .btn-primary {
   background: var(--u-ink);
@@ -372,8 +420,13 @@ a:focus-visible {
 /* ── Responsive ─────────────────────────────────────── */
 
 @media (max-width: 720px) {
+  :root {
+    --u-header-h: 56px;
+    --u-header-top: 12px;
+  }
   .wrap { padding: 0 20px; }
-  .hero { padding: 80px 0 72px; }
+  .header-bar { padding: 0 10px 0 16px; }
+  .hero { padding: 40px 0 72px; }
   .section { padding: 64px 0; }
   .site-nav { gap: 18px; }
   .site-nav a:not(.lang) { display: none; }
