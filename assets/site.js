@@ -24,7 +24,9 @@
     var bar = document.querySelector('.header-bar');
     if (!bar) return 0;
     var rect = bar.getBoundingClientRect();
-    // header height + the gap above it + the same gap again as breathing room
+    // Header height plus twice any gap above it (breathing room below to match).
+    // The bar is flush at top:0, so rect.top is 0 and this is just its height;
+    // the term is kept so a re-inset header stays correct without a JS change.
     return rect.height + rect.top * 2;
   }
 

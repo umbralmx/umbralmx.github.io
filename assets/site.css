@@ -2,16 +2,18 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* Site-chrome radii. Deliberate departure from CLAUDE.md §7/§9 (radius 0–2px):
-   the header is a floating module, so every surface takes a matching curve.
+/* Site-chrome radii for the interior modules (cards, buttons). Deliberate
+   departure from CLAUDE.md §7/§9 (radius 0–2px). The header no longer takes a
+   curve — it is a full-bleed bar per §7, so it is square and rule-separated.
    Kept out of tokens.css, which is generated and still governs charts/exports. */
 :root {
   --u-radius-ui: 12px;
   --u-radius-btn: 8px;
   --u-header-h: 64px;
-  --u-header-top: 16px;
-  /* space the fixed header occupies: its own height + the gap above and below */
-  --u-header-space: calc(var(--u-header-h) + var(--u-header-top) * 2);
+  /* header is flush at top:0, so the space it occupies is exactly its height */
+  --u-header-space: var(--u-header-h);
+  /* viewport-edge inset for the full-bleed bar; independent of .wrap's measure */
+  --u-header-inset: 32px;
 }
 
 /* Fallback for no-JS; site.js drives anchor scrolling with behavior:'instant'. */
@@ -59,10 +61,11 @@ a:focus-visible {
 
 /* ── Header ─────────────────────────────────────────── */
 
-/* Floating pill, fixed for the whole document so it survives every section. */
+/* Full-bleed bar (CLAUDE.md §7), fixed for the whole document so it survives
+   every section. Flush at top:0 — the edge-to-edge span is the point. */
 .site-header {
   position: fixed;
-  top: var(--u-header-top);
+  top: 0;
   left: 0;
   right: 0;
   z-index: 100;
@@ -73,13 +76,13 @@ a:focus-visible {
   justify-content: space-between;
   gap: 24px;
   min-height: var(--u-header-h);
-  padding: 0 12px 0 20px;
-  border: var(--u-rule) solid var(--u-border);
-  border-radius: var(--u-radius-ui);
+  padding: 0 var(--u-header-inset);
+  /* §7: a single 1px bottom rule does the structural work — no box, no radius. */
+  border-bottom: var(--u-rule) solid var(--u-border);
   /* Opaque, not glassy: a translucent bar picks up whatever section scrolls
-     under it and reads blotchy over the dark ones. Flat panel + 1px rule
+     under it and reads blotchy over the dark ones. Flat base + 1px rule
      stays legible everywhere and holds the brand's flatness. No shadow. */
-  background: var(--u-panel);
+  background: var(--u-base);
 }
 /* Anchor targets clear the fixed header on deep links, keyboard nav and
    reduced-motion jumps (site.js applies the same offset for click scrolls). */
@@ -118,24 +121,6 @@ section[id] {
 }
 .site-nav a:hover {
   color: var(--u-ink);
-}
-.site-nav .lang {
-  font-family: var(--u-font-mono);
-  font-size: 13px;
-  border: var(--u-rule) solid var(--u-baseline);
-  border-radius: var(--u-radius-btn);
-  padding: 6px 12px;
-  color: var(--u-ink);
-}
-.site-nav .lang:hover {
-  border-color: var(--u-signal);
-  color: var(--u-signal-text);
-}
-.site-nav .lang .active {
-  color: inherit;
-}
-.site-nav .lang .inactive {
-  color: var(--u-caption);
 }
 
 /* ── Hero ───────────────────────────────────────────── */
@@ -422,12 +407,13 @@ section[id] {
 @media (max-width: 720px) {
   :root {
     --u-header-h: 56px;
-    --u-header-top: 12px;
+    --u-header-inset: 20px;
   }
   .wrap { padding: 0 20px; }
-  .header-bar { padding: 0 10px 0 16px; }
   .hero { padding: 40px 0 72px; }
   .section { padding: 64px 0; }
-  .site-nav { gap: 18px; }
-  .site-nav a:not(.lang) { display: none; }
+  /* The four section links don't fit beside the wordmark at this width, and the
+     ES/EN button that used to hold this slot is gone — so the bar is brand-only
+     on small screens. Sections remain reachable by scrolling. */
+  .site-nav { display: none; }
 }
