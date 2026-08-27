@@ -13,21 +13,6 @@
 </head>
 <body>
 
-<!-- Fondo del hero: una gráfica de área (réplica del ejemplo de referencia,
-     adaptada a modo laboratorio: color plano en signal, sin degradado, sin ejes
-     ni rejilla — §6, §9). Decorativa: aria-hidden, sin interacción. Se levanta
-     una vez al cargar y respeta prefers-reduced-motion. -->
-<svg class="bg-chart" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-  <g class="bg-chart-g">
-    <path class="bg-chart-area" d="M0,252 C0,252 119,230 172,233 C224,237 298,287 341,274 C384,260 442,149 510,130 C580,110 630,155 679,176 C728,197 781,256 848,271 C917,286 965,249 1018,252 C1070,255 1146,283 1180,291 L1180,400 L0,400 Z"/>
-    <path class="bg-chart-line" d="M0,252 C0,252 119,230 172,233 C224,237 298,287 341,274 C384,260 442,149 510,130 C580,110 630,155 679,176 C728,197 781,256 848,271 C917,286 965,249 1018,252 C1070,255 1146,283 1180,291"/>
-    <g class="bg-chart-marker">
-      <circle class="bg-chart-halo" cx="1180" cy="291" r="11"/>
-      <circle class="bg-chart-dot" cx="1180" cy="291" r="4.5"/>
-    </g>
-  </g>
-</svg>
-
 <header class="site-header">
   <div class="header-bar">
     <a class="brand" href="/" aria-label="umbral_ — inicio">
@@ -36,6 +21,8 @@
     </a>
   </div>
 </header>
+
+<div class="sheet">
 
 <main>
 
@@ -131,6 +118,8 @@
     <a href="mailto:hola@umbral.org.mx">hola@umbral.org.mx</a>
   </div>
 </footer>
+
+</div>
 
 <script src="/assets/home.js" defer></script>
 </body>

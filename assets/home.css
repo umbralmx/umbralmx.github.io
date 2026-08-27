@@ -12,7 +12,6 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,50 +30,36 @@ button:focus-visible {
   outline-offset: 3px;
 }
 
-/* ── Fondo del hero: gráfica de área ───────────────────
-   Réplica de la referencia en modo laboratorio: una sola serie en signal,
-   relleno plano a baja opacidad (nada de degradados, §9), sin ejes ni rejilla.
-   La base opaca del <body> queda detrás; el <main> y el <footer> van encima. */
-
-.bg-chart {
-  position: absolute;
-  top: clamp(96px, 15vh, 220px);
-  left: 0;
-  width: 100%;
-  height: clamp(300px, 48vh, 480px);
+/* ── Rejilla de puntos ─────────────────────────────────
+   Capa fija a nivel de página, sin animación. Vive en los márgenes
+   exteriores: el header (ancho completo) y la hoja central (.sheet) la
+   tapan con fondo base, dejando un margen limpio alrededor del texto.
+   Solo asoma en pantallas más anchas que la hoja; en móvil no hay
+   márgenes que llenar y no se ve. Color de rejilla de gráfica (§6). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Filigrana: entra bajo el header, se apaga antes de la lista de proyectos. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 52%, transparent 86%);
-          mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 52%, transparent 86%);
+  background-image: radial-gradient(var(--u-baseline) 1px, transparent 1.6px);
+  background-size: 22px 22px;
+  opacity: 0.55;
 }
-.bg-chart-line {
-  fill: none;
-  stroke: var(--u-signal);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.09;
-}
-.bg-chart-area { fill: var(--u-signal); stroke: none; opacity: 0.022; }
-.bg-chart-halo { fill: var(--u-signal); opacity: 0.05; }
-.bg-chart-dot  { fill: var(--u-signal); opacity: 0.24; }
 
-/* Se levanta desde la línea base al cargar, como la referencia. */
-.bg-chart-g {
-  transform-box: fill-box;
-  transform-origin: bottom;
-  animation: bg-chart-rise 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+/* Hoja central: sostiene el contenido sobre fondo base y recorta la
+   rejilla al centro. El header va aparte, a ancho completo. */
+.sheet {
+  position: relative;
+  z-index: 1;
+  flex: 1 0 auto;
+  align-self: center;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  background: var(--u-base);
 }
-.bg-chart-marker {
-  opacity: 0;
-  animation: bg-chart-fade 0.6s ease 1.2s both;
-}
-@keyframes bg-chart-rise {
-  from { transform: scaleY(0.03); opacity: 0; }
-  to   { transform: scaleY(1); opacity: 1; }
-}
-@keyframes bg-chart-fade { to { opacity: 1; } }
 
 /* ── Header: marca a la derecha, sin navegación, sin regla ── */
 
@@ -113,8 +98,6 @@ button:focus-visible {
 /* ── Contenido ── */
 
 main {
-  position: relative;
-  z-index: 1;
   flex: 1 0 auto;
   width: 100%;
   max-width: 1080px;
@@ -293,8 +276,6 @@ main {
 /* ── Footer ── */
 
 .site-footer {
-  position: relative;
-  z-index: 1;
   flex: none;
   margin-top: clamp(96px, 18vh, 176px);
 }
@@ -321,9 +302,6 @@ main {
   .btn { transition: none; }
 
   .tw-caret { animation: none; opacity: 1; }
-
-  .bg-chart-g,
-  .bg-chart-marker { animation: none; opacity: 1; transform: none; }
 }
 
 @media (max-width: 720px) {
