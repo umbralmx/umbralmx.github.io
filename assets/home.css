@@ -1,0 +1,331 @@
+/* umbral_ — landing mínima. Todo el color viene de tokens.css; nunca un hex aquí. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --u-radius-btn: 8px;
+  --u-header-h: 64px;
+  --u-edge: 32px;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--u-base);
+  color: var(--u-ink);
+  font-family: var(--u-font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--u-ink); text-decoration: none; }
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--u-signal);
+  outline-offset: 3px;
+}
+
+/* ── Fondo del hero: gráfica de área ───────────────────
+   Réplica de la referencia en modo laboratorio: una sola serie en signal,
+   relleno plano a baja opacidad (nada de degradados, §9), sin ejes ni rejilla.
+   La base opaca del <body> queda detrás; el <main> y el <footer> van encima. */
+
+.bg-chart {
+  position: absolute;
+  top: clamp(96px, 15vh, 220px);
+  left: 0;
+  width: 100%;
+  height: clamp(300px, 48vh, 480px);
+  z-index: 0;
+  pointer-events: none;
+  /* Filigrana: entra bajo el header, se apaga antes de la lista de proyectos. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 52%, transparent 86%);
+          mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 52%, transparent 86%);
+}
+.bg-chart-line {
+  fill: none;
+  stroke: var(--u-signal);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.09;
+}
+.bg-chart-area { fill: var(--u-signal); stroke: none; opacity: 0.022; }
+.bg-chart-halo { fill: var(--u-signal); opacity: 0.05; }
+.bg-chart-dot  { fill: var(--u-signal); opacity: 0.24; }
+
+/* Se levanta desde la línea base al cargar, como la referencia. */
+.bg-chart-g {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: bg-chart-rise 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+.bg-chart-marker {
+  opacity: 0;
+  animation: bg-chart-fade 0.6s ease 1.2s both;
+}
+@keyframes bg-chart-rise {
+  from { transform: scaleY(0.03); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+@keyframes bg-chart-fade { to { opacity: 1; } }
+
+/* ── Header: marca a la derecha, sin navegación, sin regla ── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--u-base);
+}
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: var(--u-header-h);
+  padding: 0 var(--u-edge);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand img {
+  display: block;
+  height: 26px;
+  width: auto;
+}
+.wordmark {
+  font-family: var(--u-font-display);
+  font-weight: var(--u-weight-display);
+  letter-spacing: var(--u-tracking-display);
+  font-size: 21px;
+  color: var(--u-ink);
+}
+.wordmark .u { color: var(--u-signal-text); }
+
+/* ── Contenido ── */
+
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 var(--u-edge);
+}
+
+.intro {
+  padding: clamp(72px, 14vh, 156px) 0 clamp(48px, 9vh, 104px);
+}
+
+/* ── Titular con efecto de tecleo ──────────────────────
+   .tw-sizer reserva la caja a tamaño completo (visible sin JS); .tw se teclea
+   encima. El cursor es un guion bajo, como el de la marca. */
+
+.intro-headline {
+  position: relative;
+  margin: 0;
+  max-width: 17ch;
+  font-family: var(--u-font-display);
+  font-weight: var(--u-weight-display);
+  letter-spacing: var(--u-tracking-display);
+  font-size: clamp(30px, 5vw, 50px);
+  line-height: 1.16;
+}
+.tw-sizer { display: block; }
+.js .tw-sizer { visibility: hidden; }
+
+.tw { display: none; }
+.js .tw {
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+.tw-caret {
+  display: inline-block;
+  margin-left: 0.02em;
+  transform: translateX(-0.05em);
+  color: var(--u-signal-text);
+  animation: tw-blink 1.05s steps(1, end) infinite;
+}
+.intro-headline.is-typing .tw-caret { animation: none; opacity: 1; }
+@keyframes tw-blink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+/* ── Acordeón de proyectos ─────────────────────────────
+   Sin números ni reglas: solo el nombre del proyecto. Un panel abierto a la
+   vez (lo fuerza home.js). El truco grid 0fr→1fr anima la altura. */
+
+.proyectos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.proyecto-head {
+  width: 100%;
+  margin: 0;
+  padding: clamp(16px, 2.6vw, 26px) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: var(--u-ink);
+  text-align: left;
+  cursor: pointer;
+}
+.proyecto-nombre {
+  font-family: var(--u-font-display);
+  font-weight: var(--u-weight-display);
+  letter-spacing: var(--u-tracking-display);
+  font-size: clamp(22px, 3.4vw, 32px);
+  line-height: 1.1;
+  color: var(--u-muted);
+  transition: color .18s ease;
+}
+.proyecto-head:hover .proyecto-nombre,
+.proyecto.abierto .proyecto-nombre {
+  color: var(--u-ink);
+}
+
+/* Indicador +/− dibujado con dos reglas de 1px. */
+.proyecto-mas {
+  position: relative;
+  flex: none;
+  width: 18px;
+  height: 18px;
+}
+.proyecto-mas::before,
+.proyecto-mas::after {
+  content: "";
+  position: absolute;
+  background: var(--u-caption);
+  transition: transform .3s ease, background .18s ease;
+}
+.proyecto-mas::before {
+  top: 50%; left: 0; right: 0;
+  height: var(--u-rule);
+  transform: translateY(-50%);
+}
+.proyecto-mas::after {
+  left: 50%; top: 0; bottom: 0;
+  width: var(--u-rule);
+  transform: translateX(-50%);
+}
+.proyecto-head:hover .proyecto-mas::before,
+.proyecto-head:hover .proyecto-mas::after,
+.proyecto.abierto .proyecto-mas::before { background: var(--u-ink); }
+.proyecto.abierto .proyecto-mas::after { transform: translateX(-50%) scaleY(0); }
+
+/* Panel. Sin JS: abierto. Con JS (.js): colapsado y animable. */
+.proyecto-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.js .proyecto-panel {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .34s ease;
+}
+.js .proyecto.abierto .proyecto-panel {
+  grid-template-rows: 1fr;
+}
+.proyecto-panel-inner { overflow: hidden; }
+
+.proyecto-cuerpo {
+  padding: 0 0 clamp(26px, 4vw, 40px);
+  max-width: 60ch;
+}
+.js .proyecto-cuerpo {
+  opacity: 0;
+  transition: opacity .28s ease;
+}
+.js .proyecto.abierto .proyecto-cuerpo { opacity: 1; }
+
+.proyecto-estado {
+  margin: 0 0 12px;
+  font-family: var(--u-font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--u-caption);
+}
+.proyecto-cuerpo .desc {
+  margin: 0;
+  font-size: 16px;
+  color: var(--u-muted);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.btn {
+  display: inline-block;
+  padding: 9px 18px;
+  font-family: var(--u-font-display);
+  font-weight: var(--u-weight-display);
+  font-size: 13px;
+  color: var(--u-ink);
+  border: var(--u-rule) solid var(--u-baseline);
+  border-radius: var(--u-radius-btn);
+  transition: border-color .18s ease, color .18s ease;
+}
+.btn:hover {
+  border-color: var(--u-signal);
+  color: var(--u-signal-text);
+}
+
+/* ── Footer ── */
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  margin-top: clamp(96px, 18vh, 176px);
+}
+.site-footer .wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px var(--u-edge);
+}
+.site-footer a {
+  font-family: var(--u-font-mono);
+  font-size: 13px;
+  color: var(--u-muted);
+}
+.site-footer a:hover { color: var(--u-ink); }
+
+/* ── Preferencias / responsive ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .proyecto-nombre,
+  .proyecto-mas::before,
+  .proyecto-mas::after,
+  .proyecto-panel,
+  .proyecto-cuerpo,
+  .btn { transition: none; }
+
+  .tw-caret { animation: none; opacity: 1; }
+
+  .bg-chart-g,
+  .bg-chart-marker { animation: none; opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  :root { --u-header-h: 56px; --u-edge: 20px; }
+}

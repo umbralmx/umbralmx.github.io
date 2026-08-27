@@ -4,182 +4,134 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>umbral_</title>
-  <meta name="description" content="Umbral es un laboratorio de datos independiente y de código abierto. Productos de datos, análisis causal y herramientas de monitoreo para el interés público.">
-  <link rel="icon" type="image/svg+xml" href="/assets/umbral-favicon.svg">
+  <meta name="description" content="Umbral es un laboratorio de tecnología cívica y datos abiertos.">
+  <link rel="icon" type="image/svg+xml" href="/assets/umbral-isotype-light.svg">
   <link rel="stylesheet" href="/assets/fonts/fonts.css">
   <link rel="stylesheet" href="/assets/tokens.css">
-  <link rel="stylesheet" href="/assets/site.css">
+  <link rel="stylesheet" href="/assets/home.css">
+  <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
 
+<!-- Fondo del hero: una gráfica de área (réplica del ejemplo de referencia,
+     adaptada a modo laboratorio: color plano en signal, sin degradado, sin ejes
+     ni rejilla — §6, §9). Decorativa: aria-hidden, sin interacción. Se levanta
+     una vez al cargar y respeta prefers-reduced-motion. -->
+<svg class="bg-chart" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <g class="bg-chart-g">
+    <path class="bg-chart-area" d="M0,252 C0,252 119,230 172,233 C224,237 298,287 341,274 C384,260 442,149 510,130 C580,110 630,155 679,176 C728,197 781,256 848,271 C917,286 965,249 1018,252 C1070,255 1146,283 1180,291 L1180,400 L0,400 Z"/>
+    <path class="bg-chart-line" d="M0,252 C0,252 119,230 172,233 C224,237 298,287 341,274 C384,260 442,149 510,130 C580,110 630,155 679,176 C728,197 781,256 848,271 C917,286 965,249 1018,252 C1070,255 1146,283 1180,291"/>
+    <g class="bg-chart-marker">
+      <circle class="bg-chart-halo" cx="1180" cy="291" r="11"/>
+      <circle class="bg-chart-dot" cx="1180" cy="291" r="4.5"/>
+    </g>
+  </g>
+</svg>
+
 <header class="site-header">
   <div class="header-bar">
-    <a class="brand" href="/" aria-label="umbral — inicio">
-      <img src="/assets/umbral-isotype-light.svg" alt="" width="28" height="28">
+    <a class="brand" href="/" aria-label="umbral_ — inicio">
+      <img src="/assets/umbral-isotype-light.svg" alt="" width="26" height="26">
       <span class="wordmark">umbral<span class="u">_</span></span>
     </a>
-    <nav class="site-nav" aria-label="Navegación principal">
-      <a href="#proyectos">Proyectos</a>
-      <a href="#datos">Datos</a>
-      <a href="#metodologia">Metodología</a>
-      <a href="#nosotros">Nosotros</a>
-    </nav>
   </div>
 </header>
 
 <main>
 
-  <section class="hero">
-    <div class="wrap">
-      <h1>Cruzar el <span class="accent">umbral<span class="caret" aria-hidden="true">_</span></span> con tecnología y datos</h1>
-      <p>Umbral es un laboratorio de tecnología cívica y datos abiertos.</p>
-      <p class="tagline">Construimos productos y herramientas de monitoreo reproducibles para humanos y agentes.</p>
-    </div>
+  <section class="intro">
+    <h1 class="intro-headline" aria-label="umbral es un laboratorio de tecnología cívica y datos abiertos">
+      <span class="tw-sizer" aria-hidden="true">umbral es un laboratorio de tecnología cívica y datos abiertos</span>
+      <span class="tw" aria-hidden="true">umbral es un laboratorio de tecnología cívica y datos abiertos</span>
+    </h1>
   </section>
 
-  <section class="section" id="proyectos" data-mode="instrumento">
-    <div class="wrap">
-      <p class="section-label">Proyectos</p>
-      <h2>Lo que estamos construyendo</h2>
-      <p>Cada proyecto publica su código bajo licencia MIT y sus datos limpios bajo CC BY 4.0.</p>
-      <div class="projects">
-        <article class="project">
-          <p class="status">En desarrollo</p>
-          <h3>desaparecidosmx</h3>
-          <p>Pipeline que convierte el RNPDNO en CSVs limpios, mensuales y por entidad, desagregados por categoría, sexo y municipio. Todos los datos están cacheados y conciliados contra los resultados del tablero oficial.</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://desaparecidosmx.streamlit.app/">Dashboard</a>
-            <a class="btn btn-secondary" href="https://github.com/jballesterosc/desaparecidosmx">Código</a>
+  <ul class="proyectos">
+
+    <li class="proyecto">
+      <button class="proyecto-head" id="t-desaparecidosmx" aria-expanded="false" aria-controls="p-desaparecidosmx">
+        <span class="proyecto-nombre">desaparecidosmx</span>
+        <span class="proyecto-mas" aria-hidden="true"></span>
+      </button>
+      <div class="proyecto-panel" id="p-desaparecidosmx" role="region" aria-labelledby="t-desaparecidosmx">
+        <div class="proyecto-panel-inner">
+          <div class="proyecto-cuerpo">
+            <p class="proyecto-estado">En desarrollo</p>
+            <p class="desc">Pipeline que convierte el RNPDNO en CSVs limpios, mensuales y por entidad, desagregados por categoría, sexo y municipio. Todos los datos están cacheados y conciliados contra los resultados del tablero oficial.</p>
+            <div class="links">
+              <a class="btn" href="https://desaparecidosmx.streamlit.app/">Dashboard</a>
+              <a class="btn" href="https://github.com/jballesterosc/desaparecidosmx">Código</a>
+            </div>
           </div>
-        </article>
-        <article class="project">
-          <p class="status">En desarrollo</p>
-          <h3>observatorio-delictivo</h3>
-          <p>Pipeline abierto y reproducible de incidencia delictiva, victimización y percepción de seguridad en México. Snapshots inmutables por vintage, tasas por 100 mil habitantes con denominadores de CONAPO, y conciliación de homicidios SESNSP–INEGI.</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://github.com/jballesterosc/observatorio-delictivo-mx">Código</a>
-          </div>
-        </article>
-        <article class="project">
-          <p class="status">En desarrollo</p>
-          <h3>politica-meta</h3>
-          <p>Descarga y análisis del gasto en anuncios políticos de Facebook e Instagram en México con la Meta Ad Library API. Agrega por página, entidad y mes, con atribución de actores para rastrear la propaganda que corre por medios locales y páginas de terceros.</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://github.com/umbralmx/politica-meta">Código</a>
-          </div>
-        </article>
-        <article class="project">
-          <p class="status">En desarrollo</p>
-          <h3>cabildo-libre</h3>
-          <p>Buscador y línea de tiempo sobre las actas del cabildo de Colima: 636 sesiones y 6,992 puntos de agenda entre 2012 y 2026. El ayuntamiento las publica como un muro de PDF sin buscador; el sitio es estático, resuelve la búsqueda en el navegador y siempre enlaza al documento original.</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://umbralmx.github.io/cabildo-libre/">Buscador</a>
-            <a class="btn btn-secondary" href="https://github.com/umbralmx/cabildo-libre">Código</a>
-          </div>
-        </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </li>
 
-  <section class="section" id="metodologia">
-  <div class="wrap">
-    <p class="section-label">Metodología</p>
-    <h2>Un umbral es el punto donde nos detenemos</h2>
-    <p class="section-lede">Todo producto de datos toma decisiones que casi nunca se declaran: hasta dónde desagregar, cuándo dos series dejan de ser comparables, qué puede decir un modelo de lenguaje y qué no. Publicamos las decisiones, no solo las cifras — y cada punto se verifica en un repositorio público.</p>
-    <ol class="principles">
-      <li>
-        <span class="n">01</span>
-        <div>
-          <strong>El modelo no es una fuente</strong>
-          <p>Usamos modelos de lenguaje para resumir documentos y responder preguntas sobre los datos. Ninguna cifra sale de uno: los números vienen de un pipeline determinista sobre datos versionados. Cuando el documento no declara un resultado, decimos «sin resultado registrado» en lugar de inferirlo.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">02</span>
-        <div>
-          <strong>Vintages, no «último dato»</strong>
-          <p>Las fuentes mexicanas se corrigen hacia atrás. Publicamos snapshots fechados e inmutables en vez de un archivo que se sobrescribe: si una cifra cambió, se puede ver cuándo cambió y cuánto.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">03</span>
-        <div>
-          <strong>La incertidumbre es un tipo de dato</strong>
-          <p>Cuando la fuente entrega rangos, el rango se propaga por toda la cadena de agregación. Nunca tapamos un techo desconocido con la cota inferior para que la tabla se vea completa.</p>
-        </div>
-      </li>
-      <li>
-        <span class="n">04</span>
-        <div>
-          <strong>Se corre sin nosotros y sin presupuesto</strong>
-          <p>Todo se reproduce siguiendo un procedimiento documentado, y se opera sin backend ni costo mensual. Queremos que sean bienes públicos.</p>
-        </div>
-      </li>
-    </ol>
-  </div>
-</section>
-
-  <section class="section" id="nosotros" data-mode="instrumento">
-    <div class="wrap">
-      <p class="section-label">Sobre nosotros</p>
-      <h2>Quiénes somos</h2>
-      <div class="people">
-        <article class="person">
-          <div class="photo"><img src="/assets/jay-ballesteros.jpg" alt="Jay Ballesteros"></div>
-          <h3>Jay Ballesteros</h3>
-          <p class="role">Director general</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/jay-ballesteros/">LinkedIn</a>
-            <a class="btn btn-secondary" href="https://jballesterosc.github.io/">Sitio personal</a>
+    <li class="proyecto">
+      <button class="proyecto-head" id="t-observatorio-delictivo" aria-expanded="false" aria-controls="p-observatorio-delictivo">
+        <span class="proyecto-nombre">observatorio-delictivo</span>
+        <span class="proyecto-mas" aria-hidden="true"></span>
+      </button>
+      <div class="proyecto-panel" id="p-observatorio-delictivo" role="region" aria-labelledby="t-observatorio-delictivo">
+        <div class="proyecto-panel-inner">
+          <div class="proyecto-cuerpo">
+            <p class="proyecto-estado">En desarrollo</p>
+            <p class="desc">Pipeline abierto y reproducible de incidencia delictiva, victimización y percepción de seguridad en México. Snapshots inmutables por vintage, tasas por 100 mil habitantes con denominadores de CONAPO, y conciliación de homicidios SESNSP–INEGI.</p>
+            <div class="links">
+              <a class="btn" href="https://github.com/jballesterosc/observatorio-delictivo-mx">Código</a>
+            </div>
           </div>
-          <p class="bio">Diseña los pipelines y las estrategias de identificación de Umbral. Es candidato al MPP de la Universidad de Chicago y es licenciado en Relaciones Internacionales por la Universidad de Colima. </p>
-        </article>
-        <article class="person">
-          <!-- Reemplazar el placeholder con: <img src="/assets/erick-ballesteros.jpg" alt="Erick Ballesteros"> -->
-          <div class="photo" role="img" aria-label="Fotografía pendiente de Erick Ballesteros">foto</div>
-          <h3>Erick Ballesteros</h3>
-          <p class="role">Desarrollador</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
-            <a class="btn btn-secondary" href="#">Sitio personal</a>
-          </div>
-          <p class="bio">Estudiante de Ingeniería de Software en la Universidad de Colima. Trabaja en los sitios y tableros con los que se consultan nuestros datos.</p>
-        </article>
-        <article class="person">
-          <!-- Reemplazar el placeholder con: <img src="/assets/foto.jpg" alt="foto"> -->
-          <div class="photo" role="img" aria-label="Foto pendiente">foto</div>
-          <h3>TBD</h3>
-          <p class="role">Consejera</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
-            <a class="btn btn-secondary" href="#">Sitio personal</a>
-          </div>
-          <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-        </article>
-        <article class="person">
-          <!-- Reemplazar el placeholder con: <img src="/assets/foto.jpg" alt="foto"> -->
-          <div class="photo" role="img" aria-label="Foto pendiente">foto</div>
-          <h3>TBD</h3>
-          <p class="role">Consejero</p>
-          <div class="links">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/">LinkedIn</a>
-            <a class="btn btn-secondary" href="#">Sitio personal</a>
-          </div>
-          <p class="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-        </article>
+        </div>
       </div>
-    </div>
-  </section>
+    </li>
+
+    <li class="proyecto">
+      <button class="proyecto-head" id="t-politica-meta" aria-expanded="false" aria-controls="p-politica-meta">
+        <span class="proyecto-nombre">politica-meta</span>
+        <span class="proyecto-mas" aria-hidden="true"></span>
+      </button>
+      <div class="proyecto-panel" id="p-politica-meta" role="region" aria-labelledby="t-politica-meta">
+        <div class="proyecto-panel-inner">
+          <div class="proyecto-cuerpo">
+            <p class="proyecto-estado">En desarrollo</p>
+            <p class="desc">Descarga y análisis del gasto en anuncios políticos de Facebook e Instagram en México con la Meta Ad Library API. Agrega por página, entidad y mes, con atribución de actores para rastrear la propaganda que corre por medios locales y páginas de terceros.</p>
+            <div class="links">
+              <a class="btn" href="https://github.com/umbralmx/politica-meta">Código</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="proyecto">
+      <button class="proyecto-head" id="t-cabildo-libre" aria-expanded="false" aria-controls="p-cabildo-libre">
+        <span class="proyecto-nombre">cabildo-libre</span>
+        <span class="proyecto-mas" aria-hidden="true"></span>
+      </button>
+      <div class="proyecto-panel" id="p-cabildo-libre" role="region" aria-labelledby="t-cabildo-libre">
+        <div class="proyecto-panel-inner">
+          <div class="proyecto-cuerpo">
+            <p class="proyecto-estado">En desarrollo</p>
+            <p class="desc">Buscador y línea de tiempo sobre las actas del cabildo de Colima: 636 sesiones y 6,992 puntos de agenda entre 2012 y 2026. El ayuntamiento las publica como un muro de PDF sin buscador; el sitio es estático, resuelve la búsqueda en el navegador y siempre enlaza al documento original.</p>
+            <div class="links">
+              <a class="btn" href="https://umbralmx.github.io/cabildo-libre/">Buscador</a>
+              <a class="btn" href="https://github.com/umbralmx/cabildo-libre">Código</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+  </ul>
 
 </main>
 
 <footer class="site-footer">
   <div class="wrap">
-    <p>info@umbral.org.mx</p>
-    <p>umbral_ · © 2026</p>
+    <a href="mailto:hola@umbral.org.mx">hola@umbral.org.mx</a>
   </div>
 </footer>
 
-<script src="/assets/site.js" defer></script>
+<script src="/assets/home.js" defer></script>
 </body>
 </html>
