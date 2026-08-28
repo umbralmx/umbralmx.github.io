@@ -2,10 +2,8 @@
  * umbral_ — comportamiento de la portada. Sin dependencias.
  *
  *  1. Titular con efecto de tecleo (un solo pase, cursor guion bajo).
- *  2. Acordeón de proyectos: un panel abierto a la vez. Sin JS los paneles
- *     quedan visibles (home.css los deja abiertos); este script los colapsa y
- *     hace el toggle. El panel cerrado queda `inert`: fuera del orden de
- *     tabulación y de los lectores de pantalla mientras está oculto.
+ *
+ * La lista de proyectos es estática: no necesita JS.
  */
 (function () {
   'use strict';
@@ -54,35 +52,5 @@
       }
     }
     setTimeout(tick, 350);
-  })();
-
-  /* ── 2. Acordeón de proyectos ────────────────────────── */
-  (function acordeon() {
-    var items = Array.prototype.slice.call(document.querySelectorAll('.proyecto'));
-    if (!items.length) return;
-
-    function head(item) { return item.querySelector('.proyecto-head'); }
-    function panel(item) { return item.querySelector('.proyecto-panel'); }
-
-    function close(item) {
-      item.classList.remove('abierto');
-      head(item).setAttribute('aria-expanded', 'false');
-      panel(item).setAttribute('inert', '');
-    }
-
-    function open(item) {
-      items.forEach(function (other) { if (other !== item) close(other); });
-      item.classList.add('abierto');
-      head(item).setAttribute('aria-expanded', 'true');
-      panel(item).removeAttribute('inert');
-    }
-
-    items.forEach(function (item) {
-      close(item);
-      head(item).addEventListener('click', function () {
-        if (item.classList.contains('abierto')) close(item);
-        else open(item);
-      });
-    });
   })();
 })();

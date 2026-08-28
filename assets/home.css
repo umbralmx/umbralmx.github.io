@@ -3,7 +3,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --u-radius-btn: 8px;
   --u-header-h: 64px;
   --u-edge: 32px;
 }
@@ -145,108 +144,69 @@ main {
   50.01%, 100% { opacity: 0; }
 }
 
-/* ── Acordeón de proyectos ─────────────────────────────
-   Sin números ni reglas: solo el nombre del proyecto. Un panel abierto a la
-   vez (lo fuerza home.js). El truco grid 0fr→1fr anima la altura. */
+/* ── Sección de proyectos ──────────────────────────────
+   Lista dentro de un recuadro de 1px (§7: las reglas de 1px hacen el
+   trabajo estructural). Cada proyecto es una fila con regla superior;
+   todo visible, sin desplegar. --fila-x iguala el relleno del recuadro
+   para que las reglas y el hover lleguen al borde. */
+
+.proyectos-seccion {
+  --fila-x: clamp(20px, 3.4vw, 38px);
+  border: var(--u-rule) solid var(--u-baseline);
+  border-radius: var(--u-radius-max);
+  padding: clamp(18px, 2.2vw, 24px) var(--fila-x);
+}
+.proyectos-titulo {
+  margin: 0 0 clamp(6px, 1.2vw, 12px);
+  font-family: var(--u-font-mono);
+  font-weight: var(--u-weight-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--u-caption);
+}
 
 .proyectos {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+.proyecto {
+  margin: 0 calc(-1 * var(--fila-x));
+  padding: clamp(20px, 3vw, 28px) var(--fila-x);
+  border-top: var(--u-rule) solid var(--u-border);
+  transition: background-color .15s ease;
+}
+.proyecto:last-child { padding-bottom: 0; }
+.proyecto:hover { background-color: var(--u-panel); }
 
-.proyecto-head {
-  width: 100%;
-  margin: 0;
-  padding: clamp(16px, 2.6vw, 26px) 0;
+/* Cabecera de fila: slug a la izquierda, estado a la derecha. */
+.proyecto-cab {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 24px;
-  background: none;
-  border: 0;
-  font: inherit;
-  color: var(--u-ink);
-  text-align: left;
-  cursor: pointer;
+  gap: 4px 16px;
 }
 .proyecto-nombre {
-  font-family: var(--u-font-display);
-  font-weight: var(--u-weight-display);
-  letter-spacing: var(--u-tracking-display);
-  font-size: clamp(22px, 3.4vw, 32px);
-  line-height: 1.1;
-  color: var(--u-muted);
-  transition: color .18s ease;
-}
-.proyecto-head:hover .proyecto-nombre,
-.proyecto.abierto .proyecto-nombre {
+  margin: 0;
+  font-family: var(--u-font-mono);
+  font-weight: var(--u-weight-mono-medium);
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.3;
   color: var(--u-ink);
 }
-
-/* Indicador +/− dibujado con dos reglas de 1px. */
-.proyecto-mas {
-  position: relative;
-  flex: none;
-  width: 18px;
-  height: 18px;
-}
-.proyecto-mas::before,
-.proyecto-mas::after {
-  content: "";
-  position: absolute;
-  background: var(--u-caption);
-  transition: transform .3s ease, background .18s ease;
-}
-.proyecto-mas::before {
-  top: 50%; left: 0; right: 0;
-  height: var(--u-rule);
-  transform: translateY(-50%);
-}
-.proyecto-mas::after {
-  left: 50%; top: 0; bottom: 0;
-  width: var(--u-rule);
-  transform: translateX(-50%);
-}
-.proyecto-head:hover .proyecto-mas::before,
-.proyecto-head:hover .proyecto-mas::after,
-.proyecto.abierto .proyecto-mas::before { background: var(--u-ink); }
-.proyecto.abierto .proyecto-mas::after { transform: translateX(-50%) scaleY(0); }
-
-/* Panel. Sin JS: abierto. Con JS (.js): colapsado y animable. */
-.proyecto-panel {
-  display: grid;
-  grid-template-rows: 1fr;
-}
-.js .proyecto-panel {
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .34s ease;
-}
-.js .proyecto.abierto .proyecto-panel {
-  grid-template-rows: 1fr;
-}
-.proyecto-panel-inner { overflow: hidden; }
-
-.proyecto-cuerpo {
-  padding: 0 0 clamp(26px, 4vw, 40px);
-  max-width: 60ch;
-}
-.js .proyecto-cuerpo {
-  opacity: 0;
-  transition: opacity .28s ease;
-}
-.js .proyecto.abierto .proyecto-cuerpo { opacity: 1; }
-
 .proyecto-estado {
-  margin: 0 0 12px;
+  flex: none;
   font-family: var(--u-font-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--u-caption);
 }
-.proyecto-cuerpo .desc {
-  margin: 0;
+.proyecto .desc {
+  margin: clamp(8px, 1.4vw, 12px) 0 0;
+  max-width: 62ch;
   font-size: 16px;
   color: var(--u-muted);
 }
@@ -255,17 +215,17 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: clamp(16px, 2.4vw, 22px);
 }
 .btn {
   display: inline-block;
-  padding: 9px 18px;
-  font-family: var(--u-font-display);
-  font-weight: var(--u-weight-display);
-  font-size: 13px;
+  padding: 8px 14px;
+  font-family: var(--u-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
   color: var(--u-ink);
   border: var(--u-rule) solid var(--u-baseline);
-  border-radius: var(--u-radius-btn);
+  border-radius: var(--u-radius-max);
   transition: border-color .18s ease, color .18s ease;
 }
 .btn:hover {
@@ -294,11 +254,7 @@ main {
 /* ── Preferencias / responsive ── */
 
 @media (prefers-reduced-motion: reduce) {
-  .proyecto-nombre,
-  .proyecto-mas::before,
-  .proyecto-mas::after,
-  .proyecto-panel,
-  .proyecto-cuerpo,
+  .proyecto,
   .btn { transition: none; }
 
   .tw-caret { animation: none; opacity: 1; }
