@@ -3,9 +3,8 @@
  *
  *  1. Titular tecleado: letra por letra, cada una entra en color signal y
  *     decanta a tinta (CSS: .tw-char). Un solo pase, cursor de bloque.
- *  2. Acordeón de proyectos: una fila abierta a la vez. Sin JS los paneles
- *     quedan visibles (home.css); este script los colapsa y hace el toggle.
- *     El panel cerrado queda `inert`: fuera del foco y de los lectores.
+ *  2. Encabezado «proyectos»: un botón pliega toda la lista. Empieza
+ *     abierta; al cerrar, la lista queda `inert` (fuera del foco).
  */
 (function () {
   'use strict';
@@ -59,33 +58,22 @@
     setTimeout(tick, 350);
   })();
 
-  /* ── 2. Acordeón de proyectos ────────────────────────── */
-  (function acordeon() {
-    var items = Array.prototype.slice.call(document.querySelectorAll('.proyecto'));
-    if (!items.length) return;
+  /* ── 2. Plegado de la lista de proyectos ─────────────── */
+  (function proyectos() {
+    var sec = document.querySelector('.proyectos-seccion');
+    if (!sec) return;
 
-    function head(item) { return item.querySelector('.proyecto-cab'); }
-    function panel(item) { return item.querySelector('.proyecto-panel'); }
+    var btn = sec.querySelector('.proyectos-toggle');
+    var lista = document.getElementById('proyectos-lista');
+    if (!btn || !lista) return;
 
-    function close(item) {
-      item.classList.remove('abierto');
-      head(item).setAttribute('aria-expanded', 'false');
-      panel(item).setAttribute('inert', '');
-    }
-
-    function open(item) {
-      items.forEach(function (other) { if (other !== item) close(other); });
-      item.classList.add('abierto');
-      head(item).setAttribute('aria-expanded', 'true');
-      panel(item).removeAttribute('inert');
-    }
-
-    items.forEach(function (item) {
-      close(item);
-      head(item).addEventListener('click', function () {
-        if (item.classList.contains('abierto')) close(item);
-        else open(item);
-      });
+    // Empieza abierta: el estado por defecto del DOM ya es el correcto.
+    btn.addEventListener('click', function () {
+      var abrir = sec.classList.contains('cerrada');
+      sec.classList.toggle('cerrada', !abrir);
+      btn.setAttribute('aria-expanded', String(abrir));
+      if (abrir) lista.removeAttribute('inert');
+      else lista.setAttribute('inert', '');
     });
   })();
 })();

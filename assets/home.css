@@ -61,13 +61,16 @@ body::before {
 }
 
 /* ── Header: marca a la derecha, sin navegación, sin regla.
-   Fondo a ancho completo (tapa la rejilla arriba); la barra interior se
-   alinea con el contenido (mismo ancho que <main>). ── */
+   La banda entera (fondo incluido) tiene el ancho del contenido y va
+   centrada, igual que <main>. La rejilla asoma a los lados. ── */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
+  align-self: center;
+  width: 100%;
+  max-width: 1080px;
   background: var(--u-base);
 }
 .header-bar {
@@ -75,8 +78,6 @@ body::before {
   align-items: center;
   justify-content: flex-end;
   min-height: var(--u-header-h);
-  max-width: 1080px;
-  margin: 0 auto;
   padding: 0 var(--u-edge);
 }
 .brand {
@@ -159,10 +160,10 @@ main {
 }
 
 /* ── Sección de proyectos ──────────────────────────────
-   Lista dentro de un recuadro de 1px (§7: las reglas de 1px hacen el
-   trabajo estructural). Cada proyecto es una fila-acordeón con regla
-   superior; al abrir, la fila se queda con fondo panel. --fila-x iguala
-   el relleno del recuadro para que reglas y fondo lleguen al borde. */
+   Recuadro de 1px (§7). El encabezado «proyectos» es un botón que pliega
+   toda la lista de una vez; cada proyecto es una fila fija (slug, estado,
+   descripción, enlaces). --fila-x iguala el relleno del recuadro para que
+   las reglas lleguen al borde. */
 
 .proyectos-seccion {
   --fila-x: clamp(20px, 3.4vw, 38px);
@@ -170,15 +171,74 @@ main {
   border-radius: var(--u-radius-max);
   padding: clamp(18px, 2.2vw, 24px) var(--fila-x);
 }
+
+/* Encabezado-botón que pliega la lista. */
 .proyectos-titulo {
-  margin: 0 0 clamp(6px, 1.2vw, 12px);
+  margin: 0 0 clamp(8px, 1.4vw, 14px);
+  font-size: 12px;
+  line-height: 1.2;
+}
+.proyectos-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
   font-family: var(--u-font-mono);
   font-weight: var(--u-weight-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--u-caption);
+  transition: color .18s ease;
 }
+.proyectos-toggle:hover { color: var(--u-ink); }
+
+/* Indicador +/− en dos reglas de 1px (solo con JS). */
+.proyectos-mas { display: none; }
+.js .proyectos-mas {
+  display: block;
+  position: relative;
+  flex: none;
+  width: 11px;
+  height: 11px;
+}
+.proyectos-mas::before,
+.proyectos-mas::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  transition: transform .3s ease;
+}
+.proyectos-mas::before {
+  top: 50%; left: 0; right: 0;
+  height: var(--u-rule);
+  transform: translateY(-50%);
+}
+/* Por defecto la lista está abierta: se muestra «−». Cerrada: «+». */
+.proyectos-mas::after {
+  left: 50%; top: 0; bottom: 0;
+  width: var(--u-rule);
+  transform: translateX(-50%) scaleY(0);
+}
+.proyectos-seccion.cerrada .proyectos-mas::after { transform: translateX(-50%) scaleY(1); }
+
+/* Lista plegable. Sin JS: abierta. Con JS: animable (1fr→0fr al cerrar). */
+.proyectos-lista {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.js .proyectos-lista { transition: grid-template-rows .34s ease; }
+.js .proyectos-seccion.cerrada .proyectos-lista { grid-template-rows: 0fr; }
+.proyectos-lista-inner {
+  overflow: hidden;
+  min-height: 0;
+  margin: 0 calc(-1 * var(--fila-x));
+}
+.js .proyectos-lista-inner { transition: opacity .26s ease; }
+.js .proyectos-seccion.cerrada .proyectos-lista-inner { opacity: 0; }
 
 .proyectos {
   list-style: none;
@@ -186,111 +246,35 @@ main {
   padding: 0;
 }
 .proyecto {
-  margin: 0 calc(-1 * var(--fila-x));
+  padding: clamp(20px, 3vw, 28px) var(--fila-x);
   border-top: var(--u-rule) solid var(--u-border);
-  transition: background-color .18s ease;
 }
-/* La fila abierta se queda con fondo panel: se ve cuál está abierta. */
-.proyecto:hover,
-.proyecto.abierto { background-color: var(--u-panel); }
 
-/* Cabecera-botón: slug a la izquierda, estado + indicador a la derecha.
-   Ocupa toda la fila; el relleno vive aquí para que sea zona de clic. */
-.proyecto-cab-h { margin: 0; font: inherit; }
 .proyecto-cab {
-  width: 100%;
-  padding: clamp(18px, 2.6vw, 26px) var(--fila-x);
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 4px 16px;
-  background: none;
-  border: 0;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-  cursor: pointer;
 }
 .proyecto-nombre {
+  margin: 0;
   font-family: var(--u-font-mono);
   font-weight: var(--u-weight-mono-medium);
   font-size: clamp(15px, 1.7vw, 18px);
   line-height: 1.3;
   color: var(--u-ink);
-  transition: color .18s ease;
-}
-/* La fila abierta marca su slug en signal: se ve cuál está abierta. */
-.proyecto.abierto .proyecto-nombre { color: var(--u-signal-text); }
-.proyecto-cab-meta {
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: 14px;
 }
 .proyecto-estado {
+  flex: none;
   font-family: var(--u-font-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--u-caption);
 }
-
-/* Indicador +/− dibujado con dos reglas de 1px (solo con JS). */
-.proyecto-mas { display: none; }
-.js .proyecto-mas {
-  display: block;
-  position: relative;
-  flex: none;
-  width: 15px;
-  height: 15px;
-}
-.proyecto-mas::before,
-.proyecto-mas::after {
-  content: "";
-  position: absolute;
-  background: var(--u-caption);
-  transition: transform .3s ease, background .18s ease;
-}
-.proyecto-mas::before {
-  top: 50%; left: 0; right: 0;
-  height: var(--u-rule);
-  transform: translateY(-50%);
-}
-.proyecto-mas::after {
-  left: 50%; top: 0; bottom: 0;
-  width: var(--u-rule);
-  transform: translateX(-50%);
-}
-.proyecto-cab:hover .proyecto-mas::before,
-.proyecto-cab:hover .proyecto-mas::after,
-.proyecto.abierto .proyecto-mas::before { background: var(--u-ink); }
-.proyecto.abierto .proyecto-mas::after { transform: translateX(-50%) scaleY(0); }
-
-/* Panel plegable. Sin JS: abierto. Con JS: colapsado y animable (0fr→1fr). */
-.proyecto-panel {
-  display: grid;
-  grid-template-rows: 1fr;
-}
-.js .proyecto-panel {
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .34s ease;
-}
-.js .proyecto.abierto .proyecto-panel {
-  grid-template-rows: 1fr;
-}
-.proyecto-panel-inner { overflow: hidden; }
-.js .proyecto-panel-inner {
-  opacity: 0;
-  transition: opacity .26s ease;
-}
-.js .proyecto.abierto .proyecto-panel-inner { opacity: 1; }
-
-.proyecto-cuerpo {
-  padding: 0 var(--fila-x) clamp(20px, 3vw, 28px);
-}
 .proyecto .desc {
-  margin: 0;
+  margin: clamp(8px, 1.4vw, 12px) 0 0;
   max-width: 64ch;
   font-size: 16px;
   color: var(--u-muted);
@@ -339,12 +323,11 @@ main {
 /* ── Preferencias / responsive ── */
 
 @media (prefers-reduced-motion: reduce) {
-  .proyecto,
-  .proyecto-nombre,
-  .proyecto-mas::before,
-  .proyecto-mas::after,
-  .proyecto-panel,
-  .proyecto-panel-inner,
+  .proyectos-toggle,
+  .proyectos-mas::before,
+  .proyectos-mas::after,
+  .proyectos-lista,
+  .proyectos-lista-inner,
   .btn { transition: none; }
 
   .tw-char { animation: none; color: var(--u-ink); }

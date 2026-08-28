@@ -34,101 +34,66 @@
   </section>
 
   <section class="proyectos-seccion" aria-labelledby="proyectos-titulo">
-  <h2 class="proyectos-titulo" id="proyectos-titulo">proyectos</h2>
+  <h2 class="proyectos-titulo" id="proyectos-titulo">
+    <button class="proyectos-toggle" aria-expanded="true" aria-controls="proyectos-lista">
+      proyectos
+      <span class="proyectos-mas" aria-hidden="true"></span>
+    </button>
+  </h2>
 
+  <div class="proyectos-lista" id="proyectos-lista">
+  <div class="proyectos-lista-inner">
   <ul class="proyectos">
 
     <li class="proyecto">
-      <h3 class="proyecto-cab-h">
-        <button class="proyecto-cab" id="pt-desaparecidosmx" aria-expanded="false" aria-controls="pp-desaparecidosmx">
-          <span class="proyecto-nombre">desaparecidosmx</span>
-          <span class="proyecto-cab-meta">
-            <span class="proyecto-estado">En desarrollo</span>
-            <span class="proyecto-mas" aria-hidden="true"></span>
-          </span>
-        </button>
-      </h3>
-      <div class="proyecto-panel" id="pp-desaparecidosmx" role="region" aria-labelledby="pt-desaparecidosmx">
-        <div class="proyecto-panel-inner">
-          <div class="proyecto-cuerpo">
-            <p class="desc">Pipeline que convierte el RNPDNO en CSVs limpios, mensuales y por entidad, desagregados por categoría, sexo y municipio. Todos los datos están cacheados y conciliados contra los resultados del tablero oficial.</p>
-            <div class="links">
-              <a class="btn" href="https://desaparecidosmx.streamlit.app/">Dashboard</a>
-              <a class="btn" href="https://github.com/jballesterosc/desaparecidosmx">Código</a>
-            </div>
-          </div>
-        </div>
+      <div class="proyecto-cab">
+        <h3 class="proyecto-nombre">desaparecidosmx</h3>
+        <span class="proyecto-estado">En desarrollo</span>
+      </div>
+      <p class="desc">Pipeline que convierte el RNPDNO en CSVs limpios, mensuales y por entidad, desagregados por categoría, sexo y municipio. Todos los datos están cacheados y conciliados contra los resultados del tablero oficial.</p>
+      <div class="links">
+        <a class="btn" href="https://desaparecidosmx.streamlit.app/">Dashboard</a>
+        <a class="btn" href="https://github.com/jballesterosc/desaparecidosmx">Código</a>
       </div>
     </li>
 
     <li class="proyecto">
-      <h3 class="proyecto-cab-h">
-        <button class="proyecto-cab" id="pt-observatorio-delictivo" aria-expanded="false" aria-controls="pp-observatorio-delictivo">
-          <span class="proyecto-nombre">observatorio-delictivo</span>
-          <span class="proyecto-cab-meta">
-            <span class="proyecto-estado">En desarrollo</span>
-            <span class="proyecto-mas" aria-hidden="true"></span>
-          </span>
-        </button>
-      </h3>
-      <div class="proyecto-panel" id="pp-observatorio-delictivo" role="region" aria-labelledby="pt-observatorio-delictivo">
-        <div class="proyecto-panel-inner">
-          <div class="proyecto-cuerpo">
-            <p class="desc">Pipeline abierto y reproducible de incidencia delictiva, victimización y percepción de seguridad en México. Snapshots inmutables por vintage, tasas por 100 mil habitantes con denominadores de CONAPO, y conciliación de homicidios SESNSP–INEGI.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/jballesterosc/observatorio-delictivo-mx">Código</a>
-            </div>
-          </div>
-        </div>
+      <div class="proyecto-cab">
+        <h3 class="proyecto-nombre">observatorio-delictivo</h3>
+        <span class="proyecto-estado">En desarrollo</span>
+      </div>
+      <p class="desc">Pipeline abierto y reproducible de incidencia delictiva, victimización y percepción de seguridad en México. Snapshots inmutables por vintage, tasas por 100 mil habitantes con denominadores de CONAPO, y conciliación de homicidios SESNSP–INEGI.</p>
+      <div class="links">
+        <a class="btn" href="https://github.com/jballesterosc/observatorio-delictivo-mx">Código</a>
       </div>
     </li>
 
     <li class="proyecto">
-      <h3 class="proyecto-cab-h">
-        <button class="proyecto-cab" id="pt-politica-meta" aria-expanded="false" aria-controls="pp-politica-meta">
-          <span class="proyecto-nombre">politica-meta</span>
-          <span class="proyecto-cab-meta">
-            <span class="proyecto-estado">En desarrollo</span>
-            <span class="proyecto-mas" aria-hidden="true"></span>
-          </span>
-        </button>
-      </h3>
-      <div class="proyecto-panel" id="pp-politica-meta" role="region" aria-labelledby="pt-politica-meta">
-        <div class="proyecto-panel-inner">
-          <div class="proyecto-cuerpo">
-            <p class="desc">Descarga y análisis del gasto en anuncios políticos de Facebook e Instagram en México con la Meta Ad Library API. Agrega por página, entidad y mes, con atribución de actores para rastrear la propaganda que corre por medios locales y páginas de terceros.</p>
-            <div class="links">
-              <a class="btn" href="https://github.com/umbralmx/politica-meta">Código</a>
-            </div>
-          </div>
-        </div>
+      <div class="proyecto-cab">
+        <h3 class="proyecto-nombre">politica-meta</h3>
+        <span class="proyecto-estado">En desarrollo</span>
+      </div>
+      <p class="desc">Descarga y análisis del gasto en anuncios políticos de Facebook e Instagram en México con la Meta Ad Library API. Agrega por página, entidad y mes, con atribución de actores para rastrear la propaganda que corre por medios locales y páginas de terceros.</p>
+      <div class="links">
+        <a class="btn" href="https://github.com/umbralmx/politica-meta">Código</a>
       </div>
     </li>
 
     <li class="proyecto">
-      <h3 class="proyecto-cab-h">
-        <button class="proyecto-cab" id="pt-cabildo-libre" aria-expanded="false" aria-controls="pp-cabildo-libre">
-          <span class="proyecto-nombre">cabildo-libre</span>
-          <span class="proyecto-cab-meta">
-            <span class="proyecto-estado">En desarrollo</span>
-            <span class="proyecto-mas" aria-hidden="true"></span>
-          </span>
-        </button>
-      </h3>
-      <div class="proyecto-panel" id="pp-cabildo-libre" role="region" aria-labelledby="pt-cabildo-libre">
-        <div class="proyecto-panel-inner">
-          <div class="proyecto-cuerpo">
-            <p class="desc">Buscador y línea de tiempo sobre las actas del cabildo de Colima: 636 sesiones y 6,992 puntos de agenda entre 2012 y 2026. El ayuntamiento las publica como un muro de PDF sin buscador; el sitio es estático, resuelve la búsqueda en el navegador y siempre enlaza al documento original.</p>
-            <div class="links">
-              <a class="btn" href="https://umbralmx.github.io/cabildo-libre/">Buscador</a>
-              <a class="btn" href="https://github.com/umbralmx/cabildo-libre">Código</a>
-            </div>
-          </div>
-        </div>
+      <div class="proyecto-cab">
+        <h3 class="proyecto-nombre">cabildo-libre</h3>
+        <span class="proyecto-estado">En desarrollo</span>
+      </div>
+      <p class="desc">Buscador y línea de tiempo sobre las actas del cabildo de Colima: 636 sesiones y 6,992 puntos de agenda entre 2012 y 2026. El ayuntamiento las publica como un muro de PDF sin buscador; el sitio es estático, resuelve la búsqueda en el navegador y siempre enlaza al documento original.</p>
+      <div class="links">
+        <a class="btn" href="https://umbralmx.github.io/cabildo-libre/">Buscador</a>
+        <a class="btn" href="https://github.com/umbralmx/cabildo-libre">Código</a>
       </div>
     </li>
 
   </ul>
+  </div>
+  </div>
   </section>
 
 </main>
