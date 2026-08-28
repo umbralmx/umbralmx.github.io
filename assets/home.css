@@ -60,7 +60,9 @@ body::before {
   background: var(--u-base);
 }
 
-/* ── Header: marca a la derecha, sin navegación, sin regla ── */
+/* ── Header: marca a la derecha, sin navegación, sin regla.
+   Fondo a ancho completo (tapa la rejilla arriba); la barra interior se
+   alinea con el contenido (mismo ancho que <main>). ── */
 
 .site-header {
   position: sticky;
@@ -73,6 +75,8 @@ body::before {
   align-items: center;
   justify-content: flex-end;
   min-height: var(--u-header-h);
+  max-width: 1080px;
+  margin: 0 auto;
   padding: 0 var(--u-edge);
 }
 .brand {
@@ -110,7 +114,8 @@ main {
 
 /* ── Titular con efecto de tecleo ──────────────────────
    .tw-sizer reserva la caja a tamaño completo (visible sin JS); .tw se teclea
-   encima. El cursor es un guion bajo, como el de la marca. */
+   encima, letra por letra. Cada letra entra en color signal y decanta a tinta
+   (una estela corta tras el cursor); el cursor es un bloque signal. */
 
 .intro-headline {
   position: relative;
@@ -131,11 +136,20 @@ main {
   position: absolute;
   inset: 0;
 }
+.tw-char {
+  animation: tw-settle 0.55s ease forwards;
+}
+@keyframes tw-settle {
+  from { color: var(--u-signal); opacity: 0.3; }
+  to   { color: var(--u-ink); opacity: 1; }
+}
 .tw-caret {
   display: inline-block;
-  margin-left: 0.02em;
-  transform: translateX(-0.05em);
-  color: var(--u-signal-text);
+  width: 0.4em;
+  height: 0.72em;
+  margin-left: 0.1em;
+  transform: translateY(0.02em);
+  background: var(--u-signal-text);
   animation: tw-blink 1.05s steps(1, end) infinite;
 }
 .intro-headline.is-typing .tw-caret { animation: none; opacity: 1; }
@@ -146,9 +160,9 @@ main {
 
 /* ── Sección de proyectos ──────────────────────────────
    Lista dentro de un recuadro de 1px (§7: las reglas de 1px hacen el
-   trabajo estructural). Cada proyecto es una fila con regla superior;
-   todo visible, sin desplegar. --fila-x iguala el relleno del recuadro
-   para que las reglas y el hover lleguen al borde. */
+   trabajo estructural). Cada proyecto es una fila-acordeón con regla
+   superior; al abrir, la fila se queda con fondo panel. --fila-x iguala
+   el relleno del recuadro para que reglas y fondo lleguen al borde. */
 
 .proyectos-seccion {
   --fila-x: clamp(20px, 3.4vw, 38px);
@@ -173,40 +187,111 @@ main {
 }
 .proyecto {
   margin: 0 calc(-1 * var(--fila-x));
-  padding: clamp(20px, 3vw, 28px) var(--fila-x);
   border-top: var(--u-rule) solid var(--u-border);
-  transition: background-color .15s ease;
+  transition: background-color .18s ease;
 }
-.proyecto:last-child { padding-bottom: 0; }
-.proyecto:hover { background-color: var(--u-panel); }
+/* La fila abierta se queda con fondo panel: se ve cuál está abierta. */
+.proyecto:hover,
+.proyecto.abierto { background-color: var(--u-panel); }
 
-/* Cabecera de fila: slug a la izquierda, estado a la derecha. */
+/* Cabecera-botón: slug a la izquierda, estado + indicador a la derecha.
+   Ocupa toda la fila; el relleno vive aquí para que sea zona de clic. */
+.proyecto-cab-h { margin: 0; font: inherit; }
 .proyecto-cab {
+  width: 100%;
+  padding: clamp(18px, 2.6vw, 26px) var(--fila-x);
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 4px 16px;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 .proyecto-nombre {
-  margin: 0;
   font-family: var(--u-font-mono);
   font-weight: var(--u-weight-mono-medium);
   font-size: clamp(15px, 1.7vw, 18px);
   line-height: 1.3;
   color: var(--u-ink);
+  transition: color .18s ease;
+}
+/* La fila abierta marca su slug en signal: se ve cuál está abierta. */
+.proyecto.abierto .proyecto-nombre { color: var(--u-signal-text); }
+.proyecto-cab-meta {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 .proyecto-estado {
-  flex: none;
   font-family: var(--u-font-mono);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--u-caption);
 }
+
+/* Indicador +/− dibujado con dos reglas de 1px (solo con JS). */
+.proyecto-mas { display: none; }
+.js .proyecto-mas {
+  display: block;
+  position: relative;
+  flex: none;
+  width: 15px;
+  height: 15px;
+}
+.proyecto-mas::before,
+.proyecto-mas::after {
+  content: "";
+  position: absolute;
+  background: var(--u-caption);
+  transition: transform .3s ease, background .18s ease;
+}
+.proyecto-mas::before {
+  top: 50%; left: 0; right: 0;
+  height: var(--u-rule);
+  transform: translateY(-50%);
+}
+.proyecto-mas::after {
+  left: 50%; top: 0; bottom: 0;
+  width: var(--u-rule);
+  transform: translateX(-50%);
+}
+.proyecto-cab:hover .proyecto-mas::before,
+.proyecto-cab:hover .proyecto-mas::after,
+.proyecto.abierto .proyecto-mas::before { background: var(--u-ink); }
+.proyecto.abierto .proyecto-mas::after { transform: translateX(-50%) scaleY(0); }
+
+/* Panel plegable. Sin JS: abierto. Con JS: colapsado y animable (0fr→1fr). */
+.proyecto-panel {
+  display: grid;
+  grid-template-rows: 1fr;
+}
+.js .proyecto-panel {
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .34s ease;
+}
+.js .proyecto.abierto .proyecto-panel {
+  grid-template-rows: 1fr;
+}
+.proyecto-panel-inner { overflow: hidden; }
+.js .proyecto-panel-inner {
+  opacity: 0;
+  transition: opacity .26s ease;
+}
+.js .proyecto.abierto .proyecto-panel-inner { opacity: 1; }
+
+.proyecto-cuerpo {
+  padding: 0 var(--fila-x) clamp(20px, 3vw, 28px);
+}
 .proyecto .desc {
-  margin: clamp(8px, 1.4vw, 12px) 0 0;
-  max-width: 62ch;
+  margin: 0;
+  max-width: 64ch;
   font-size: 16px;
   color: var(--u-muted);
 }
@@ -255,8 +340,14 @@ main {
 
 @media (prefers-reduced-motion: reduce) {
   .proyecto,
+  .proyecto-nombre,
+  .proyecto-mas::before,
+  .proyecto-mas::after,
+  .proyecto-panel,
+  .proyecto-panel-inner,
   .btn { transition: none; }
 
+  .tw-char { animation: none; color: var(--u-ink); }
   .tw-caret { animation: none; opacity: 1; }
 }
 
