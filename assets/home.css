@@ -3,7 +3,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --u-header-h: 64px;
   --u-edge: 32px;
 }
 
@@ -47,7 +46,7 @@ body::before {
 }
 
 /* Hoja central: sostiene el contenido sobre fondo base y recorta la
-   rejilla al centro. El header va aparte, a ancho completo. */
+   rejilla al centro. */
 .sheet {
   position: relative;
   z-index: 1;
@@ -60,46 +59,6 @@ body::before {
   background: var(--u-base);
 }
 
-/* ── Header: marca a la derecha, sin navegación, sin regla.
-   La banda (el fondo de .header-bar) tiene exactamente el ancho de la
-   medida de texto, igual que el titular y el recuadro de proyectos. La
-   rejilla asoma a los lados. ── */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  align-self: center;
-  width: 100%;
-  max-width: 1080px;
-  padding: 0 var(--u-edge);
-}
-.header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-height: var(--u-header-h);
-  background: var(--u-base);
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.brand img {
-  display: block;
-  height: 26px;
-  width: auto;
-}
-.wordmark {
-  font-family: var(--u-font-display);
-  font-weight: var(--u-weight-display);
-  letter-spacing: var(--u-tracking-display);
-  font-size: 21px;
-  color: var(--u-ink);
-}
-.wordmark .u { color: var(--u-signal-text); }
-
 /* ── Contenido ── */
 
 main {
@@ -110,8 +69,30 @@ main {
   padding: 0 var(--u-edge);
 }
 
+/* Marca: sin header ni barra. Va al principio del contenido, alineada
+   con el titular y el resto de la columna. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  margin: clamp(28px, 5vh, 44px) 0 clamp(40px, 8vh, 76px);
+}
+.brand img {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+.wordmark {
+  font-family: var(--u-font-display);
+  font-weight: var(--u-weight-display);
+  letter-spacing: var(--u-tracking-display);
+  font-size: 20px;
+  color: var(--u-ink);
+}
+.wordmark .u { color: var(--u-signal-text); }
+
 .intro {
-  padding: clamp(72px, 14vh, 156px) 0 clamp(48px, 9vh, 104px);
+  padding: 0 0 clamp(48px, 9vh, 104px);
 }
 
 /* ── Titular con efecto de tecleo ──────────────────────
@@ -152,12 +133,12 @@ main {
   margin-left: 0.1em;
   transform: translateY(0.02em);
   background: var(--u-signal-text);
-  animation: tw-blink 1.05s steps(1, end) infinite;
+  animation: tw-blink 1.05s step-end infinite;
 }
 .intro-headline.is-typing .tw-caret { animation: none; opacity: 1; }
 @keyframes tw-blink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* ── Sección de proyectos ──────────────────────────────
@@ -336,5 +317,5 @@ main {
 }
 
 @media (max-width: 720px) {
-  :root { --u-header-h: 56px; --u-edge: 20px; }
+  :root { --u-edge: 20px; }
 }
