@@ -61,8 +61,9 @@ body::before {
 }
 
 /* ── Header: marca a la derecha, sin navegación, sin regla.
-   La banda entera (fondo incluido) tiene el ancho del contenido y va
-   centrada, igual que <main>. La rejilla asoma a los lados. ── */
+   La banda (el fondo de .header-bar) tiene exactamente el ancho de la
+   medida de texto, igual que el titular y el recuadro de proyectos. La
+   rejilla asoma a los lados. ── */
 
 .site-header {
   position: sticky;
@@ -71,14 +72,14 @@ body::before {
   align-self: center;
   width: 100%;
   max-width: 1080px;
-  background: var(--u-base);
+  padding: 0 var(--u-edge);
 }
 .header-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   min-height: var(--u-header-h);
-  padding: 0 var(--u-edge);
+  background: var(--u-base);
 }
 .brand {
   display: flex;
@@ -175,7 +176,7 @@ main {
 /* Encabezado-botón que pliega la lista. */
 .proyectos-titulo {
   margin: 0 0 clamp(8px, 1.4vw, 14px);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.2;
 }
 .proyectos-toggle {
@@ -188,9 +189,8 @@ main {
   cursor: pointer;
   font-family: var(--u-font-mono);
   font-weight: var(--u-weight-mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 13px;
+  letter-spacing: 0.01em;
   color: var(--u-caption);
   transition: color .18s ease;
 }
@@ -330,8 +330,9 @@ main {
   .proyectos-lista-inner,
   .btn { transition: none; }
 
+  /* El tecleo se desactiva, pero el cursor sigue parpadeando: es un
+     cursor de texto, no un adorno en movimiento. */
   .tw-char { animation: none; color: var(--u-ink); }
-  .tw-caret { animation: none; opacity: 1; }
 }
 
 @media (max-width: 720px) {
