@@ -293,13 +293,17 @@ main {
   max-width: 1080px;
   margin: 0 auto;
   padding: 32px var(--u-edge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.site-footer a {
+.site-footer a:not(.btn) {
   font-family: var(--u-font-mono);
   font-size: 13px;
   color: var(--u-muted);
 }
-.site-footer a:hover { color: var(--u-ink); }
+.site-footer a:not(.btn):hover { color: var(--u-ink); }
 
 /* ── Preferencias / responsive ── */
 
