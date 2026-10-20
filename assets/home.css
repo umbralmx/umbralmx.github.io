@@ -298,12 +298,22 @@ main {
   justify-content: space-between;
   gap: 16px;
 }
-.site-footer a:not(.btn) {
+.site-footer a {
   font-family: var(--u-font-mono);
   font-size: 13px;
   color: var(--u-muted);
+  transition: color .18s ease;
 }
-.site-footer a:not(.btn):hover { color: var(--u-ink); }
+.site-footer a:hover { color: var(--u-ink); }
+
+/* Enlace a GitHub: mismo texto mono que el correo, con la marca de
+   GitHub en currentColor. Sin recuadro, para que el pie quede plano. */
+.site-footer .gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.site-footer .gh svg { flex: none; }
 
 /* ── Preferencias / responsive ── */
 
@@ -313,7 +323,8 @@ main {
   .proyectos-mas::after,
   .proyectos-lista,
   .proyectos-lista-inner,
-  .btn { transition: none; }
+  .btn,
+  .site-footer a { transition: none; }
 
   /* El tecleo se desactiva, pero el cursor sigue parpadeando: es un
      cursor de texto, no un adorno en movimiento. */
